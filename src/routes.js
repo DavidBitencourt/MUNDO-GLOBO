@@ -6,6 +6,9 @@ import "react-native-gesture-handler";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import RegisterUser from "./pages/RegisterUser";
+import RegisterPassword from "./pages/RegisterUser/RegisterPassword";
+import SelectServicesBack from "./pages/SelectServicesBack";
+import UploadImageUser from "./pages/UploadImageUser";
 const AppStack = createStackNavigator();
 
 export default function Routes() {
@@ -20,6 +23,12 @@ export default function Routes() {
         <AppStack.Screen name="Home" component={Home} />
         <AppStack.Screen name="Login" component={Login} />
         <AppStack.Screen name="RegisterUser" component={RegisterUser} />
+        <AppStack.Screen name="RegisterPassword" component={RegisterPassword} />
+        <AppStack.Screen name="UploadImageUser" component={UploadImageUser} />
+        <AppStack.Screen
+          name="SelectServicesBack"
+          component={SelectServicesBack}
+        />
       </AppStack.Navigator>
     </NavigationContainer>
   );
