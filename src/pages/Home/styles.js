@@ -15,7 +15,7 @@ export const TitleStyled = styled.Text`
 `;
 
 export const LabelStyled = styled.Text`
-  font-size: 25px;
+  font-size: 23px;
   color: #ffffff;
   font-weight: 100;
 `;

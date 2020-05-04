@@ -1,7 +1,8 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
-import { Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, AsyncStorage } from "react-native";
+import { v4 } from "react-native-uuid";
 import logo from "../../../assets/images/globo.png";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
@@ -18,12 +19,27 @@ export default function RegisterPassword() {
   const name = route.params.name;
   const email = route.params.email;
   const gender = route.params.gender;
-
+  const [usersStorage, setUsersStorage] = useState([]);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  let getUsersStorage;
+
+  const getUsers = async () => {
+    getUsersStorage = await AsyncStorage.getItem("users");
+    getUsersStorage && setUsersStorage(JSON.parse(getUsersStorage));
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   const registerUser = async () => {
-    if (password && confirmPassword && password === confirmPassword) {
+    if (name && email && gender && password && confirmPassword) {
+      const id = v4();
+      let newUser = { id, name, email, password, uri: "" };
+      usersStorage.push(newUser);
+      await AsyncStorage.setItem("users", JSON.stringify(usersStorage));
       await Alert.alert("Cadastrado realizado com sucesso!");
       navigation.navigate("Login");
     } else {
@@ -62,21 +78,30 @@ export default function RegisterPassword() {
           onChange={(text) => setPassword(text)}
           value={password}
           secureTextEntry
+          accessible={true}
+          accessibilityLabel="Senha"
+          accessibilityHint="Insira aqui a sua senha"
         />
         <Input
           label={"Confirme a sua senha"}
           onChange={(text) => setConfirmPassword(text)}
           value={confirmPassword}
           secureTextEntry
+          accessible={true}
+          accessibilityLabel="Confirme a sua senha"
+          accessibilityHint="Insira aqui a mesma senha para confirmar"
         />
         <BoxButtonStyled>
           <Button
-            text="ENTRAR"
+            text="CADASTRAR"
             textColor="#ffffff"
             backgroundColor="#8708FE"
             handler={() => {
               registerUser();
             }}
+            accessible={true}
+            accessibilityLabel="Cadastrar"
+            accessibilityHint="Finalizar cadastro e navegar para tela de login"
           />
         </BoxButtonStyled>
       </LinearGradient>

@@ -13,9 +13,10 @@ import {
   ImageStyled,
   TitleStyled,
 } from "./styles";
-export default function HomeServices({ index }) {
+export default function HomeServices() {
   const navigation = useNavigation();
   const [url, setUrl] = useState("");
+
   useEffect(() => {
     setUrl("");
   }, []);

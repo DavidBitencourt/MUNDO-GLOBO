@@ -98,6 +98,10 @@ export default function DashServices(props) {
       tabBarPosition={"bottom"}
       swipeEnabled={false}
       renderTabBar={renderTabBar}
+      gestureHandlerProps={{
+        teste: 1,
+      }}
+      teste={"1"}
     />
   );
 }

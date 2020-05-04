@@ -16,8 +16,9 @@ export default function Home() {
 
   return (
     <ContainerStyled>
-      <TitleStyled>A sua Globo.</TitleStyled>
-      <LabelStyled>Onde você estiver.</LabelStyled>
+      <TitleStyled>Mundo Globo</TitleStyled>
+      <LabelStyled>A sua Globo,</LabelStyled>
+      <LabelStyled>onde você estiver.</LabelStyled>
       <ContainerLogoStyled>
         <LogoStyled
           source={logo}
@@ -28,7 +29,11 @@ export default function Home() {
         />
       </ContainerLogoStyled>
       <ContainerButtonsStyled>
-        <BoxButtonStyled>
+        <BoxButtonStyled
+          accessible={true}
+          accessibilityLabel="ENTRAR COM MINHA CONTA"
+          accessibilityHint="Avançar para a tela de login"
+        >
           <Button
             text="ENTRAR COM MINHA CONTA"
             textColor="#ffffff"
@@ -38,7 +43,11 @@ export default function Home() {
             }}
           />
         </BoxButtonStyled>
-        <BoxButtonStyled>
+        <BoxButtonStyled
+          accessible={true}
+          accessibilityLabel="CRIAR MINHA CONTA"
+          accessibilityHint="Avançar para a tela de cadastro"
+        >
           <Button
             text="CRIAR MINHA CONTA"
             textColor="#ffffff"

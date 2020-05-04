@@ -1,5 +1,5 @@
+import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
-
 export const ContainerStyled = styled.View`
   width: 100%;
   height: 100%;
@@ -45,3 +45,34 @@ export const BoxButtonStyled = styled.View`
   align-items: center;
   justify-content: center;
 `;
+
+export const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    width: "100%",
+    height: 55,
+    backgroundColor: "white",
+    fontSize: 18,
+    borderRadius: 14,
+    color: "black",
+    color: "black",
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+  },
+  inputAndroid: {
+    width: "100%",
+    height: 55,
+    borderRadius: 14,
+    backgroundColor: "white",
+    fontSize: 18,
+    color: "black",
+    marginLeft: "auto",
+    marginRight: "auto",
+    textAlign: "center",
+  },
+  placeholder: {
+    color: "#8E8E93",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+});

@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import { Alert, StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import logo from "../../assets/images/globo.png";
 import Button from "../../components/Button";
@@ -11,6 +11,7 @@ import {
   ContainerLogoStyled,
   ContainerStyled,
   LogoStyled,
+  pickerSelectStyles,
   TitleStyled,
 } from "./styles";
 export default function RegisterUser() {
@@ -19,42 +20,11 @@ export default function RegisterUser() {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
 
-  const sports = [
+  const genders = [
     { label: "Masculino", value: "male" },
     { label: "Feminino", value: "female" },
     { label: "Outro", value: "other" },
   ];
-
-  const pickerSelectStyles = StyleSheet.create({
-    inputIOS: {
-      width: "100%",
-      height: 55,
-      backgroundColor: "white",
-      fontSize: 18,
-      borderRadius: 14,
-      color: "black",
-      color: "black",
-      marginLeft: "auto",
-      marginRight: "auto",
-      textAlign: "center",
-    },
-    inputAndroid: {
-      width: "100%",
-      height: 55,
-      borderRadius: 14,
-      backgroundColor: "white",
-      fontSize: 18,
-      color: "black",
-      marginLeft: "auto",
-      marginRight: "auto",
-      textAlign: "center",
-    },
-    placeholder: {
-      color: "#8E8E93",
-      fontSize: 18,
-      fontWeight: "bold",
-    },
-  });
 
   const verifyData = async () => {
     if (name && email && gender) {
@@ -99,11 +69,17 @@ export default function RegisterUser() {
           label={"Nome completo"}
           onChange={(text) => setName(text)}
           value={name}
+          accessible={true}
+          accessibilityLabel="Nome completo"
+          accessibilityHint="Insira aqui o seu nome"
         />
         <Input
           label={"E-mail"}
           onChange={(text) => setEmail(text)}
           value={email}
+          accessible={true}
+          accessibilityLabel="E-mail"
+          accessibilityHint="Insira aqui o seu e-mail"
         />
         <View
           style={{
@@ -112,12 +88,15 @@ export default function RegisterUser() {
             marginTop: 35,
             borderRadius: 14,
           }}
+          accessible={true}
+          accessibilityLabel="Qual gênero você se identifica"
+          accessibilityHint="Escolha uma das opções"
         >
           <RNPickerSelect
             onValueChange={(value) => {
               setGender(value);
             }}
-            items={sports}
+            items={genders}
             value={gender}
             placeholder={{
               label: "Qual gênero você se identifica",
@@ -127,7 +106,11 @@ export default function RegisterUser() {
             style={pickerSelectStyles}
           />
         </View>
-        <BoxButtonStyled>
+        <BoxButtonStyled
+          accessible={true}
+          accessibilityLabel="Qual gênero você se identifica"
+          accessibilityHint="Avançar para continuar cadastro"
+        >
           <Button
             text="CONTINUAR"
             textColor="#ffffff"

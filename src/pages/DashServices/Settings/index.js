@@ -1,6 +1,7 @@
 import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import { AsyncStorage } from "react-native";
 import gShowImg from "../../../assets/images/gshow.png";
 import g1Img from "../../../assets/images/serviceG1.png";
 import globoPlayImg from "../../../assets/images/serviceGloboPlay.png";
@@ -24,6 +25,18 @@ export default function Settings() {
   const [url, setUrl] = useState("");
   const [freeDisabled, setFreeDisabled] = useState(false);
   const [paidDisabled, setPaidDisabled] = useState(true);
+  const [user, setUser] = useState({});
+
+  const getUsers = async () => {
+    let userStorage = await AsyncStorage.getItem("session");
+    userStorage = JSON.parse(userStorage);
+    setUser({ ...userStorage });
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   useEffect(() => {
     setUrl("");
   }, []);
@@ -47,18 +60,20 @@ export default function Settings() {
       img: globoPlayImg,
     },
   ];
-  //Enviamos um e-mail com instruções para a criação de uma nova senha
+
   return (
     <ContainerStyled>
       <HeaderUserStyled>
         <ContainerImageStyled>
           <ImageStyled
-            source={url ? url : services[0].img}
+            source={{
+              uri: user.uri,
+            }}
             width={100}
             height={100}
           />
         </ContainerImageStyled>
-        <NameUser>David Bitencourt</NameUser>
+        <NameUser>{user.name}</NameUser>
       </HeaderUserStyled>
       <ContainerProfileStyled>
         <TitleProfileStyled>Seu conteúdo Globo</TitleProfileStyled>
@@ -91,7 +106,11 @@ export default function Settings() {
         {freeDisabled ? (
           <>
             <LabelStyled>Gerenciar assinaturas pagas</LabelStyled>
-            <ContainerServiceStyled>
+            <ContainerServiceStyled
+              style={{
+                marginTop: 15,
+              }}
+            >
               <ContainerImageStyled>
                 <ImageStyled source={globoPlayImg} width={100} height={100} />
               </ContainerImageStyled>
@@ -104,7 +123,11 @@ export default function Settings() {
         ) : (
           <>
             <LabelStyled>Gerenciar serviços gratuitos</LabelStyled>
-            <ContainerServiceStyled>
+            <ContainerServiceStyled
+              style={{
+                marginTop: 15,
+              }}
+            >
               <ContainerImageStyled>
                 <ImageStyled source={g1Img} width={100} height={100} />
               </ContainerImageStyled>

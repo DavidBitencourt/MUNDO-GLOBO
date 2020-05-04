@@ -97,13 +97,11 @@ export const LogoStyled = styled.Image`
 export const ContainerServiceStyled = styled.View`
   width: 85%;
   height: 100px;
-  margin: 15px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
   border-top-width: 2px;
-  border-bottom-width: 2px;
   border-color: #8e8e93;
 `;
 

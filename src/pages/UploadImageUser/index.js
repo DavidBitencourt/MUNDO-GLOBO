@@ -1,10 +1,10 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Constants from "expo-constants";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
-import React, { useState } from "react";
-import { Image, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, AsyncStorage, Image, TouchableOpacity } from "react-native";
 import uploadImg from "../../assets/images/uploadImg.png";
 import Button from "../../components/Button";
 import {
@@ -18,15 +18,30 @@ import {
 } from "./styles";
 export default function UploadImageUser() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const user = route.params.user;
   const [img, setImg] = useState({
-    image: "",
+    image: user.uri ? user.uri : "",
   });
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    let usersStorage = await AsyncStorage.getItem("users");
+    usersStorage = JSON.parse(usersStorage);
+    setUsers(usersStorage);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   const getPermissionAsync = async () => {
     if (Constants.platform.ios) {
       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
       if (status !== "granted") {
-        alert("Sorry, we need camera roll permissions to make this work!");
+        Alert.alert(
+          "Sorry, we need camera roll permissions to make this work!"
+        );
         return;
       }
     }
@@ -39,9 +54,24 @@ export default function UploadImageUser() {
     });
     if (!result.cancelled) {
       setImg({ image: result.uri });
+      let registerUri = await users.find((item) => {
+        return item.id === user.id;
+      });
+      registerUri.uri = result.uri;
+      user.uri = result.uri;
+      let otherUsers = await users.filter((item) => {
+        return item.id !== user.id;
+      });
+      setUsers([...otherUsers, registerUri]);
     }
   };
 
+  const goDashUser = async () => {
+    await AsyncStorage.clear();
+    await AsyncStorage.setItem("users", JSON.stringify(users));
+    await AsyncStorage.setItem("session", JSON.stringify(user));
+    navigation.navigate("SelectServicesBack", { user });
+  };
   return (
     <ContainerStyled>
       <ContainerLogoStyled>
@@ -85,14 +115,14 @@ export default function UploadImageUser() {
           </TouchableOpacity>
         )}
       </ContainerImgStyled>
-      <TextNameUserStyled>David Bitencourt</TextNameUserStyled>
+      <TextNameUserStyled>{user.name}</TextNameUserStyled>
       <BoxButtonStyled>
         <Button
           text="CONTINUAR"
           textColor="#ffffff"
           backgroundColor="#8708FE"
           handler={() => {
-            navigation.navigate("SelectServicesBack");
+            goDashUser();
           }}
         />
       </BoxButtonStyled>
