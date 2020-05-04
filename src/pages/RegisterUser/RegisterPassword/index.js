@@ -1,6 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import logo from "../../../assets/images/globo.png";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
@@ -13,9 +14,23 @@ import {
 } from "./styles";
 export default function RegisterPassword() {
   const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const route = useRoute();
+  const name = route.params.name;
+  const email = route.params.email;
+  const gender = route.params.gender;
+
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const registerUser = async () => {
+    if (password && confirmPassword && password === confirmPassword) {
+      await Alert.alert("Cadastrado realizado com sucesso!");
+      navigation.navigate("Login");
+    } else {
+      Alert.alert("Digite uma senha e confirme!");
+    }
+  };
+
   return (
     <ContainerStyled>
       <ContainerLogoStyled>
@@ -50,8 +65,8 @@ export default function RegisterPassword() {
         />
         <Input
           label={"Confirme a sua senha"}
-          onChange={(text) => setPassword(text)}
-          value={password}
+          onChange={(text) => setConfirmPassword(text)}
+          value={confirmPassword}
           secureTextEntry
         />
         <BoxButtonStyled>
@@ -60,7 +75,7 @@ export default function RegisterPassword() {
             textColor="#ffffff"
             backgroundColor="#8708FE"
             handler={() => {
-              navigation.navigate("Login");
+              registerUser();
             }}
           />
         </BoxButtonStyled>
