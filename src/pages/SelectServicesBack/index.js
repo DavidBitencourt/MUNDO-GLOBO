@@ -25,7 +25,7 @@ export default function SelectServicesBack() {
           textColor="#ffffff"
           backgroundColor="#8708FE"
           handler={() => {
-            navigation.navigate("Login");
+            navigation.navigate("DashServices");
           }}
         />
       </BoxButtonStyled>

@@ -30,7 +30,7 @@ export default function Button({
 
   return (
     <LinearGradient
-      colors={["#f31d1d", "#3827b4"]}
+      colors={disabled ? ["#f31d1d", "#f31d1d"] : ["#f31d1d", "#3827b4"]}
       style={{
         width: "85%",
         height: 50,
@@ -44,7 +44,7 @@ export default function Button({
       <ButtonStyled
         backgroundColor={backgroundColor}
         onPress={() => handler()}
-        disabled={disabled}
+        canceled={disabled}
         width={width}
       >
         <TextButtonStyled disabled={disabled} textColor={textColor}>

@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { StatusBar } from "react-native";
 import "react-native-gesture-handler";
+import DashServices from "./pages/DashServices";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import RegisterUser from "./pages/RegisterUser";
@@ -29,6 +30,7 @@ export default function Routes() {
           name="SelectServicesBack"
           component={SelectServicesBack}
         />
+        <AppStack.Screen name="DashServices" component={DashServices} />
       </AppStack.Navigator>
     </NavigationContainer>
   );

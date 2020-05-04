@@ -5,6 +5,7 @@ export const ButtonStyled = styled.TouchableOpacity`
   height: 50px;
   border-radius: 50px;
   align-items: center;
+  background-color: ${({ canceled }) => (canceled ? "#8e8e93" : "transparent")};
   justify-content: center;
   flex-grow: 1;
 `;

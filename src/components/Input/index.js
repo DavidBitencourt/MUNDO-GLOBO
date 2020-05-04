@@ -34,7 +34,7 @@ export default function Input({
         onChangeText={(text) => {
           onChange(text);
         }}
-        fontSize={19}
+        fontSize={18}
         labelFontSize={17}
         activeLineWidth={0}
         disabledLineWidth={0}
