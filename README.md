@@ -25,3 +25,6 @@ No protótipo que entregamos em conjunto com este MVP é possível visualizar a 
 em um produto final.
 
 Para poder testar o aplicativo em dispositivos android o arquivo .APK encontra-se na pasta /dist do projeto.
+
+#
+
